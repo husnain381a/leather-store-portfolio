@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Premium Leather Whips - Luxury Design System */
+
+@layer base {
+  :root {
+    /* Core Colors - Obsidian & Luxury */
+    --background: 0 0% 5%;
+    --foreground: 38 10% 90%;
+    
+    /* Surfaces */
+    --card: 0 0% 8%;
+    --card-foreground: 38 10% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 38 10% 90%;
+    
+    /* Primary - Burnished Caramel */
+    --primary: 30 59% 52%;
+    --primary-foreground: 0 0% 5%;
+    
+    /* Secondary - Saddle Brown */
+    --secondary: 16 28% 29%;
+    --secondary-foreground: 38 10% 90%;
+    
+    /* Muted */
+    --muted: 0 0% 12%;
+    --muted-foreground: 38 10% 55%;
+    
+    /* Accent - Gold highlight */
+    --accent: 35 80% 50%;
+    --accent-foreground: 0 0% 5%;
+    
+    /* Utility */
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 30 59% 52%;
+    --radius: 0.25rem;
+    
+    /* Gradients */
+    --gradient-luxury: linear-gradient(135deg, hsl(30 59% 52%) 0%, hsl(16 28% 29%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
+    --gradient-card-hover: linear-gradient(145deg, hsl(0 0% 10%) 0%, hsl(0 0% 7%) 100%);
+    
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 30px hsl(30 59% 52% / 0.15);
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 38 10% 90%;
+    --sidebar-primary: 30 59% 52%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 38 10% 90%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 30 59% 52%;
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 38 10% 90%;
+    --card: 0 0% 8%;
+    --card-foreground: 38 10% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 38 10% 90%;
+    --primary: 30 59% 52%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 16 28% 29%;
+    --secondary-foreground: 38 10% 90%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 38 10% 55%;
+    --accent: 35 80% 50%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 30 59% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    @apply font-medium tracking-tight;
+  }
+}
+
+@layer components {
+  /* Luxury Button Variants */
+  .btn-luxury {
+    @apply bg-primary text-primary-foreground px-8 py-3 font-medium tracking-wide;
+    @apply transition-all duration-300 ease-out;
+    @apply hover:shadow-[var(--shadow-glow)] hover:scale-[1.02];
+  }
+  
+  .btn-outline-luxury {
+    @apply border border-primary/50 text-primary bg-transparent px-8 py-3;
+    @apply font-medium tracking-wide transition-all duration-300;
+    @apply hover:bg-primary hover:text-primary-foreground;
+  }
+  
+  /* Category Pills */
+  .category-pill {
+    @apply px-6 py-2.5 text-sm font-medium tracking-wider uppercase;
+    @apply text-muted-foreground transition-all duration-300;
+    @apply hover:text-foreground hover:scale-105;
+    @apply relative after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2;
+    @apply after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300;
+  }
+  
+  .category-pill.active {
+    @apply text-primary after:w-full;
+  }
+  
+  .category-pill:hover::after {
+    @apply w-3/4;
+  }
+  
+  /* Product Card */
+  .product-card {
+    @apply bg-card rounded-sm overflow-hidden transition-all duration-500;
+    @apply hover:shadow-[var(--shadow-luxury)];
+  }
+  
+  .product-card-image {
+    @apply w-full aspect-[3/4] object-cover transition-transform duration-700 ease-out;
+  }
+  
+  .product-card:hover .product-card-image {
+    @apply scale-105;
+  }
+  
+  /* Quick View Button */
+  .quick-view-btn {
+    @apply absolute inset-0 flex items-center justify-center;
+    @apply bg-background/80 backdrop-blur-sm opacity-0 transition-opacity duration-300;
+  }
+  
+  .product-card:hover .quick-view-btn {
+    @apply opacity-100;
+  }
+  
+  /* Luxury Input */
+  .input-luxury {
+    @apply bg-muted border border-border text-foreground px-4 py-3;
+    @apply placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary;
+    @apply transition-all duration-200 outline-none;
+  }
+  
+  /* Admin Table */
+  .admin-table {
+    @apply w-full border-collapse;
+  }
+  
+  .admin-table th {
+    @apply text-left text-xs uppercase tracking-wider text-muted-foreground;
+    @apply px-4 py-3 border-b border-border font-medium;
+  }
+  
+  .admin-table td {
+    @apply px-4 py-4 border-b border-border/50 text-sm;
+  }
+  
+  .admin-table tr {
+    @apply transition-colors duration-200 hover:bg-muted/30;
+  }
+}
+
+@layer utilities {
+  /* Text Gradient */
+  .text-gradient-luxury {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-luxury);
+  }
+  
+  /* Smooth Scrollbar */
+  .scrollbar-luxury::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  .scrollbar-luxury::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  .scrollbar-luxury::-webkit-scrollbar-thumb {
+    @apply bg-secondary rounded-full;
+  }
+}
