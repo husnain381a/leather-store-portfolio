@@ -1,22 +1,97 @@
-Below is a summary of the technical architecture and the logic behind our implementation:
+# Premium Leather Showcase
 
-1. What We Used
-We built a modern tech stack focused on high performance and "Artisan Crafted" aesthetics:
-Frontend: React.js with Tailwind CSS for the luxury dark theme and Framer Motion for smooth, high-end animations.
-Backend-as-a-Service: Supabase for the PostgreSQL database, Authentication (Admin/Public roles), and Storage for product images.
-Routing: react-router-dom to manage the seamless transition between the Home, About, Contact, and Admin pages.
-Icons: Lucide-React for minimalist, themed iconography across the dashboard and contact sections.
+A modern storefront for luxury handcrafted leather whips, built with a premium visual style, category browsing, product quick views, and an authenticated admin dashboard.
 
-2. Why We Used It
-Each choice was made to solve specific technical challenges:
-Supabase RLS (Row Level Security): We used this to ensure that only you (the Admin) can add or delete products, while your customers can only view them.
-React Context API: We implemented ProductContext to ensure that when you add a product in the Admin Console, it instantly updates the storefront without a page reload.
-AbortController: We added this to fix "AbortErrors" caused by React's Strict Mode, ensuring your database connection remains stable during fast navigation.
-Local Video: We utilized local video on the About page to showcase your Sialkot craftsmanship without relying on third-party players like YouTube, maintaining a "premium" ad-free look.
+## Highlights
 
-3. How We Implemented It
-We followed a systematic workflow to move from errors to a live site:
-Schema Synchronization: We updated the Supabase database using SQL commands to include color and size columns so they matched your React form fields.
-Security Configuration: We verified that your user ID was assigned the admin role in the profiles table to grant you access to the Masterpiece creator.
-Image Pipeline: We configured the Admin Dashboard to take a local file, upload it to the Supabase "product-images" bucket, and then save that public URL into the product's database row.
-Universal Navigation: We updated the App.jsx and Header.jsx to link the new About, Contact, and Login pages into a single, cohesive user journey.
+- Luxury hero experience with animated carousel and responsive layout
+- Product catalog with category-based filtering
+- Quick-view modal for product details
+- WhatsApp floating contact CTA for direct inquiries
+- Dedicated pages for About, Contact, and Custom Manufacture
+- Protected admin route with Supabase-backed authentication/data flow
+- Test setup included with Vitest and Testing Library
+
+## Tech Stack
+
+- React 18
+- Vite 5
+- Tailwind CSS
+- Framer Motion
+- React Router DOM
+- Supabase JavaScript client
+- Vitest + Testing Library
+
+## Run Locally
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/husnain381a/leather-store-portfolio.git
+cd leather-store-portfolio
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a file named `.env` in the project root:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+If these values are missing, the app logs a configuration warning and Supabase-dependent flows will not work correctly.
+
+### 3. Start development server
+
+```bash
+npm run dev
+```
+
+Default Vite URL:
+
+```text
+http://localhost:5173
+```
+
+## Available Scripts
+
+- `npm run dev` - Start local dev server
+- `npm run build` - Build production bundle
+- `npm run build:dev` - Build with development mode
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint checks
+- `npm run test` - Run tests once
+- `npm run test:watch` - Run tests in watch mode
+
+## Main Routes
+
+- `/` - Home + hero + collection grid
+- `/about` - Brand and craftsmanship story
+- `/contact` - Contact and inquiry page
+- `/custom-manufacture` - Custom order page
+- `/login` - Admin login
+- `/admin` - Protected admin dashboard
+
+## Deployment Notes
+
+- The project includes `public/_redirects`, which is useful for SPA routing on Netlify-style deployments.
+- Ensure production environment variables are set for Supabase.
+
+## Project Structure
+
+```text
+src/
+	components/        Reusable UI and feature components
+	context/           Auth and product state providers
+	data/              Product seed/static data
+	hooks/             Custom hooks (including smooth-scroll)
+	lib/               Supabase client and utilities
+	pages/             Route-level pages
+	test/              Test setup and example tests
+```
+
+## Status
+
+Actively maintained portfolio storefront. Contributions, fixes, and UI/content enhancements are welcome.
