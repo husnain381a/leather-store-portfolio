@@ -11,12 +11,18 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ReactWhatsapp from "react-whatsapp";
 import { FaWhatsapp } from "react-icons/fa";
 import { useLenis } from "./hooks/useLenis";
+import { Loader2 } from 'lucide-react';
 
 const AdminRoute = () => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return null;
+    // Return a spinner instead of null
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
   }
 
   return isAuthenticated ? <AdminDashboard /> : <Navigate to="/login" replace />;

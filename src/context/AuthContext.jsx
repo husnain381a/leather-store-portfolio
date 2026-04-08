@@ -5,7 +5,6 @@ const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,16 +18,12 @@ export function AuthProvider({ children }) {
         const { data: { session } } = await supabase.auth.getSession();
         if (session) {
           setUser(session.user);
-          setLoading(true);
-          await checkAdminRole(session.user);
         } else {
           setUser(null);
-          setIsAdmin(false);
-          setLoading(false);
         }
       } catch (error) {
         setUser(null);
-        setIsAdmin(false);
+      } finally {
         setLoading(false);
       }
     };
@@ -37,38 +32,14 @@ export function AuthProvider({ children }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session) {
         setUser(session.user);
-        setLoading(true);
-        await checkAdminRole(session.user);
       } else {
         setUser(null);
-        setIsAdmin(false);
-        setLoading(false);
       }
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
-
-  async function checkAdminRole(supabaseUser) {
-    try {
-      setUser(supabaseUser);
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', supabaseUser.id)
-        .single();
-
-      if (!error && data?.role === 'admin') {
-        setIsAdmin(true);
-      } else {
-        setIsAdmin(false);
-      }
-    } catch (err) {
-      setIsAdmin(false);
-    } finally {
-      setLoading(false); // Fixes the infinite loading pulse
-    }
-  }
 
   const login = async (email, password) => {
     if (!isSupabaseConfigured) {
@@ -95,7 +66,6 @@ export function AuthProvider({ children }) {
     const result = await supabase.auth.signOut();
     if (!result.error) {
       setUser(null);
-      setIsAdmin(false);
       setLoading(false);
     }
 
@@ -103,7 +73,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: Boolean(user), isAdmin, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: Boolean(user), loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ShieldCheck, Anchor, Hammer, Award } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import heroBullwhip from '@/assets/hero-bullwhip.jpg';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -22,15 +23,11 @@ export default function About() {
         <section className="relative h-[70vh] flex items-center justify-center overflow-hidden border-b border-border/50">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-black/60 z-10" />
-            <video 
-              autoPlay 
-              muted 
-              loop 
-              playsInline
+            <img
+              src={heroBullwhip}
+              alt="Craftsmanship background"
               className="w-full h-full object-cover grayscale"
-            >
-              <source src="/videos/craftsmanship.mp4" type="video/mp4" />
-            </video>
+            />
           </div>
           
           <motion.div 
