@@ -383,6 +383,7 @@ export default function AdminDashboard() {
                         <option>Bullwhips</option>
                         <option>Stockwhips</option>
                         <option>Snake Whips</option>
+                        <option>Signal Whips</option>
                         <option>Accessories</option>
                       </select>
                     </div>

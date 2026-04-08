@@ -42,11 +42,16 @@ export default function ProductModal({ product, isOpen, onClose }) {
 
   if (!product) return null;
   const displayImage = product.image_url || "/placeholder.svg";
+  const displaySize = product.size
+    ? /ft\b/i.test(product.size)
+      ? product.size
+      : `${product.size} ft`
+    : 'Standard';
 
   const handleWhatsAppInquiry = () => {
     const phoneNumber = '923338600603';
     const formattedPrice = Number(product.price).toLocaleString();
-    const message = `Hello, I want to inquire about ${product.name} (${product.size || 'Standard'} | ${product.color || 'Brandy'}) priced at $${formattedPrice}.`;
+    const message = `Hello, I want to inquire about ${product.name} (${displaySize} | ${product.color || 'Brandy'}) priced at $${formattedPrice}.`;
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
@@ -117,7 +122,7 @@ export default function ProductModal({ product, isOpen, onClose }) {
                       <Ruler className="h-4 w-4" />
                       <span className="text-[10px] uppercase tracking-wider">Size</span>
                     </div>
-                    <p className="font-medium text-foreground">{product.size || "Standard"}</p>
+                    <p className="font-medium text-foreground">{displaySize}</p>
                   </div>
                   
                   <div className="space-y-1">
